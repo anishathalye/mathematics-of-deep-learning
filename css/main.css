@@ -1,0 +1,157 @@
+/* taken from seashells.io */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-rendering: geometricPrecision;
+}
+
+html {
+  font-size: 14px;
+  font-family: "Menlo", "DejaVu Sans Mono", "Lucida Console", monospace;
+  line-height: 1.5;
+}
+
+@media(max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+body {
+  margin: 0 1rem;
+  color: #aaa;
+  background-color: #000;
+}
+
+::selection {
+  background: #268bd2;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #eee;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  line-height: 1.25;
+}
+
+h1 {
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #444;
+}
+
+h1:before {
+  content: "# ";
+}
+
+h2 {
+  margin-top: 1.25rem;
+  font-size: 1.1rem;
+}
+
+h2:before {
+  content: "## ";
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+strong {
+  color: #ccc;
+  font-weight: bold;
+}
+
+em {
+  color: #eee;
+  font-style: italic;
+}
+
+ul {
+  list-style-position: inside;
+}
+
+li:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.compact > li {
+  margin-bottom: 0;
+}
+
+li > ul {
+  padding-left: 2rem;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+ul li:before {
+  content: "- ";
+}
+
+pre, code {
+  font-family: "Menlo", "DejaVu Sans Mono", "Lucida Console", monospace;
+}
+
+code:before {
+  content: "`";
+}
+
+code:after {
+  content: "`";
+}
+
+code {
+  color: #2aa198;
+}
+
+pre {
+  color: #ccc;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px dashed #444;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.prompt, .control {
+  font-weight: bold;
+}
+
+.command {
+  color: #859900;
+}
+
+.data {
+  color: #b58900;
+}
+
+.flag {
+  color: #6c71c4;
+}
+
+.response {
+  color: #777;
+}
+
+a {
+  color: #d33682;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #eee;
+  background-color: #d33682;
+}
+
+#content {
+  max-width: 50rem;
+  margin: auto;
+  margin-bottom: 2rem;
+}

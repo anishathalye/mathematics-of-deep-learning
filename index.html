@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      The Mathematics of Deep Learning
+    </title>
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="content">
+      <h1>The Mathematics of Deep Learning</h1>
+
+      <h3>SIPB IAP 2018</h3>
+
+      <h3>Thu Jan 18 05:00pm - 09:00pm in 4-237</h3>
+
+      <p>Learn the key ideas that make deep learning work.</p>
+
+      <p>This class focuses on teaching the mathematical ideas that make deep
+      learning tractable and teaching how to think about deep representations
+      and neural network function approximation.</p>
+
+      <p>As we introduce the mathematics, we'll work through implementing
+      simple neural networks and training algorithms from scratch in NumPy.
+      While teaching higher-level ideas, we'll switch to using TensorFlow's
+      high-level interface for programming more sophisticated neural networks
+      without having to think about computing derivatives manually. Finally,
+      we'll introduce cutting-edge ideas from deep learning research and try to
+      replicate some of the latest results ourselves.</p>
+
+      <h2>RSVP</h2>
+
+      <p>If you're coming, please RSVP
+      <a href="https://goo.gl/forms/lTl5ejUtAY4RJKZQ2">here</a> (preferred) or
+      email <a href="mailto:aathalye@mit.edu">aathalye@mit.edu</a>.</p>
+
+      <h2>Prerequisites</h2>
+
+      <p>Multivariable calculus required (be comfortable with partial
+      derivatives and the multivariate
+      <a href="https://en.wikipedia.org/wiki/Chain_rule">chain rule</a>), and
+      linear algebra recommended. Some familiarity with Python, NumPy, and
+      TensorFlow recommended.</p>
+
+      <h2>Preparation</h2>
+
+      <p>Install the following software:</p>
+
+      <p>
+      <ul>
+        <li><a href="http://jupyter.org/">Jupyter Notebook</a> (with a Python 3
+          kernel)</li>
+        <li><a href="http://www.numpy.org/">NumPy</a></li>
+        <li><a href="https://www.scipy.org/">SciPy</a></li>
+        <li><a href="https://www.tensorflow.org/">TensorFlow</a> (install
+          <code>tensorflow-gpu</code> if you have a GPU that supports
+          CUDA)</li>
+        <li><a href="https://python-pillow.org/">Pillow</a></li>
+      </ul>
+      </p>
+
+      <p>Installing these packages can be a bit of a pain, so if you prefer,
+      you can use a
+      <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>
+      VM
+      <a href="https://www.dropbox.com/s/g1srsu8aeur239n/deeplearning.ova?dl=0">image</a>
+      (username and password both
+      <code>deeplearning</code>) that has all the software preinstalled.</p>
+
+      <p>To make sure you've installed everything properly, make sure you can
+      execute the following code in a Jupyter Notebook:</p>
+
+<pre>
+import tensorflow as tf
+import numpy as np
+from scipy.misc import imsave
+
+sess = tf.InteractiveSession()
+
+x = tf.placeholder(tf.float32, (1,))
+print((x*x).eval({x: np.array([3])})) # this should print "[ 9.]"
+</pre>
+
+      <p>It's highly recommended that you try playing around with Jupyter
+      Notebook before the class.</p>
+
+      <h2>Materials</h2>
+
+      <p>Class materials will be available at
+      <a href="https://github.com/anishathalye/mathematics-of-deep-learning">github.com/anishathalye/mathematics-of-deep-learning</a>
+      closer to the day of the class.</p>
+
+    </div>
+  </body>
+</html>
