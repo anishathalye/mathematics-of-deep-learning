@@ -1,0 +1,6 @@
+data/
+datasource/
+logs/
+*.hdf5
+*.jpg
+*.png

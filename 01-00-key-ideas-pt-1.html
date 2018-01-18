@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Key Ideas, Part 1</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Montserrat);
+      @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700,400italic);
+
+      body { font-family: 'Lato'; }
+      h1, h2, h3 {
+        font-family: 'Montserrat';
+        font-weight: normal;
+      }
+      img {
+          max-width: 100%;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Source Code Pro'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+# Key Ideas, Part 1
+
+1. Program search
+
+1. Gradient descent
+
+1. Computational graphs
+
+1. Backpropagation
+
+???
+
+* A new kind of programming: write programs by stating the problem rather than
+the solution. This usually takes the form of "find a function that best
+explains some data". We'll give some big set of candidate functions, and we'll
+have the computer search over this space to find a good solution to our stated
+problem. This is a good strategy to use when it's much easier to explain the
+problem than to explain the solution.
+
+* We can use gradient descent to search this space of functions to find good
+solutions to our problem, iteratively taking small steps to tune our
+parameters toward an optimal solution.
+
+* We can express a set of candidate solutions as a computational graph with
+some learnable variables. It's a nice language to work in, and when you allow
+for recursion, this is a Turing-complete model of computation, so it's general
+enough to capture any program me way want.
+
+* We can use the backpropagation algorithm to efficiently compute gradients
+with respect to millions of parameters, making it possible to find solutions in
+a reasonable amount of time.
+
+* These ideas may seem a bit abstract right now, but we'll go through some
+concrete examples and then recap at the end.
+
+---
+
+class: center, middle
+
+# Program search
+
+---
+
+# Program search
+
+* Convert Celsius to Fahrenheit
+
+???
+
+* If we have a simple problem for which we know the solution, we just go ahead
+and implement it directly
+
+--
+
+```python
+def f(c):
+  return 1.8 * c + 32
+```
+
+---
+
+# Program search
+
+* Optical character recognition (OCR)
+
+.center[
+    ![](figs/ocr.png)
+]
+
+<!-- demo from http://antimatter15.com/ocrad.js/demo.html -->
+
+???
+
+* This problem seems a little bit harder. It's easy to specify the problem --
+you might have a big labeled dataset, or you could synthesize one by using a
+bunch of different fonts and rendering random text.
+
+---
+
+# Program search
+
+* See [GNU Ocrad](https://www.gnu.org/software/ocrad/)
+
+```c
+int Features::test_G() const
+  {
+  if( lp.isconvex() || lp.ispit() )
+    {
+    int col = 0, row = 0;
+    for( int i = rp.pos( 60 ); i >= rp.pos( 30 ); --i )
+      if( rp[i] > col ) { col = rp[i]; row = i; }
+    if( col == 0 ) return 0;
+    row += b.top(); col = b.right() - col + 1;
+    if( col <= b.left() || col >= b.hcenter() ) return 0;
+
+    col = ( col + b.hcenter() ) / 2;
+    row = b.seek_bottom( row, col );
+    if( row < b.bottom() && b.escape_right( row, col ) &&
+        !b.escape_bottom( row, b.hcenter() ) )
+      {
+      const int noise = std::max( 2, b.height() / 20 );
+```
+
+???
+
+* You can still (painstakingly) write a set of rules for this task
+
+---
+
+# Program search
+
+* Image classification
+
+.center[
+    ![](figs/image-classification.png)
+]
+
+???
+
+* How do you write a program for this sort of thing? How do you write a program
+  to control a car? Convert speech to text? Translate from Chinese to English?
+
+---
+
+# Program search
+
+* New strategy for solving problems where it's hard to write the solution
+  manually
+
+--
+
+* Conceptually: describe a set of candidates `\(\{f_1, f_2, \ldots, f_n\}\)` and choose the best one
+
+    * Need to specify criteria; often, want function that best fits a training data set
+
+    * Example: for regression, mean squared error
+
+    * Example: for classification, cross entropy
+
+???
+
+* Conceptually, does this make sense?
+
+* How do you choose the set of functions?
+
+* How do you specify criteria?
+
+* How do you actually find the optimal function?
+
+---
+
+# Program search
+
+* Convert Celsius to Fahrenheit
+
+???
+
+* This is a really simple example, but it demonstrates the important points
+
+--
+
+* Describe a set of functions:
+
+```python
+def f(c):
+  a = ? # some real number
+  b = ? # some other real number
+  return a * c + b
+```
+
+???
+
+* Here, we're assuming a linear relationship
+
+* This isn't a program, it's describing a set of programs. Every point in R^2
+  corresponds with a program.
+
+* In practice, when a and b are 32-bit floats, this describes a set of 2^64
+  programs.
+
+--
+
+* Choose the function that best fits (potentially noisy) data:
+
+`$$\{ f(0.1) = 31.8, f(101.1) = 213.2, \ldots \}$$`
+
+--
+
+* Choose to minimize mean squared error
+
+`$$l(a, b) = \frac{1}{n} \sum_{i = 1}^{n} \left| f(x_i) - y_i \right|^2$$`
+
+???
+
+* Note that the loss is a function of the parameters a and b.
+
+* You should think of this as a new super-powerful programming paradigm. You
+  can program with "blanks": you can "outline" a program, leave some of the
+  details blank, and have your computer fill in the blanks with the optimal
+  parameters.
+
+---
+
+class: center, middle
+
+# Gradient descent
+
+---
+
+# Gradient descent
+
+* Suppose we have a function `\(f\)` parameterized by `\(\theta\)`, and we have
+  a loss `\(l(\theta)\)` that we want to minimize
+    
+    * Example: MSE, `\(l(\theta) = \frac{1}{n} \sum_{i = 1}^{n} \left| f_\theta(x_i) - y_i \right|^2\)`
+
+???
+
+* Note that saying "f parameterized by theta" is describing a set of functions:
+  every possible value of theta corresponds to a particular function in that
+  set. We're going to use these terms interchangably.
+
+--
+
+* Minimize `\(l(\theta)\)` by following the gradient:
+
+`$$ \theta \leftarrow \theta - \alpha \cdot \nabla_\theta \ l(\theta) $$`
+
+???
+
+* Initialize parameters in some way, and then apply this iterative update step
+  until your loss is small enough.
+
+* Alpha is a hyperparameter: the learning rate.
+
+* There are other variations to gradient descent, some with nicer convergence
+  behavior or that sort of thing, but roughly, this is what's going on.
+
+--
+
+* Stochastic gradient descent, estimate loss over a sample of data points:
+
+`$$ \theta \leftarrow \theta - \alpha \cdot \nabla_\theta \sum_i \ l_i(\theta) $$`
+
+???
+
+* This is useful when your loss is a function of a huge number of data points.
+  If you have a million images in a training set, computing the true gradient
+  over the entire training set would be really slow.
+
+* Now, besides other questions like convergence, two main questions remain: how
+  do we specify these parameterized functions, and how can we compute the
+  gradient efficiently?
+
+---
+
+class: center, middle
+
+# Computational graphs
+
+---
+
+# Computational graphs
+
+* Graphs describing functions
+
+* Nodes represent input variables, parameters, operations, or output variables;
+  operations are pure functions of their inputs
+
+* Edges represent data flow
+
+* Describe sets of functions by having nodes that are parameters
+
+* Example: linear regression and mean squared error loss
+
+???
+
+* Describe sets of functions as computational graphs: they are nice to reason
+  about.
+
+* Simple way of encoding functions.
+
+* [ 01-01-notes, 01-02-notes ]
+
+* Why like this? (next slide)
+
+---
+
+# Computational graphs
+
+* Have operations with known derivatives
+
+* Compute derivatives over graph using the chain rule
+
+???
+
+* While neural networks with a single hidden layer can approximate any
+  function, turns out that in practice you get massive representational power
+  using very deep networks.
+
+--
+
+* Path explosion in deep networks
+
+???
+
+* [ 01-03-notes ]
+
+---
+
+class: center, middle
+
+# Backpropagation
+
+---
+
+# Backpropagation
+
+* Chain rule + dynamic programming
+
+???
+
+* Simple but powerful idea
+
+* [ 01-04-notes ]
+
+--
+
+* Reverse mode differentiation: many inputs, one output
+
+* Forward mode differentiation: one input, many outputs
+
+???
+
+* Reverse mode is also called backpropagation. This is what's useful when
+  training neural nets. You have a single output, a loss term. But you might
+  have millions of parameters, so you want to compute the derivative with
+  respect to lots of terms.
+
+* Forward mode differentiation is less frequently used.
+
+---
+
+# Recap
+
+Rather than specifying solutions, we can just **specify the problem and search
+for the solution**. We can express the space of **candidate solutions as a
+computational graph** with trainable variables, and we can search over this
+solution space using **gradient descent** to find a good solution, using
+**backpropagation** to efficiently compute gradients.
+
+???
+
+* In hindsight, we can say that we only need a couple simple ideas to get
+  really great results. But it's nonobvious to put these things together.
+
+---
+
+# Some history
+
+* The Perceptron: A Probabilistic Model for Information Storage and
+  Organization in The Brain [Rosenblatt 1958]
+
+* Backpropagation [Kelley 1960; Bryson 1961; Dreyfus 1962; Bryson & Ho 1969;
+  Linnainmaa 1970]
+
+* Learning representations by back-propagating errors [Rumelhart et al. 1986]
+
+* ImageNet Classification with Deep Convolutional Neural Networks [Krizhevsky
+  et al. 2012]
+
+???
+
+* Perceptron: one of the first artificial neural networks; very simple learning algorithm
+
+* Ideas for backpropagation existed in the 60s
+
+* The two weren't put together until 1986
+
+* ImageNet: image classification challenge; in 2011, error rates were 26%; in
+  2012, using deep learning, error rate fell to 16%. Now, it's superhuman.
+  Renewed interest in deep learning because of GPUs and more data: bigger and
+  deeper networks give better results, but we needed more data and compute to
+  make them work.
+
+* This is part 1; in part 2, we'll talk about how to design search spaces for
+  real problems. But before that, let's experiment with the concepts we've just
+  learned in a Jupyter notebook. We're actually going to be working with our
+  Celsius to Fahrenheit example, because oddly enough, it's a simple example
+  that demonstrates basically every important concept presented here.
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+          countIncrementalSlides: false
+      });
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>

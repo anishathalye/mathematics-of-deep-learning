@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Mathematics of Deep Learning</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Montserrat);
+      @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700,400italic);
+
+      body { font-family: 'Lato'; }
+      h1, h2, h3 {
+        font-family: 'Montserrat';
+        font-weight: normal;
+      }
+      img {
+          max-width: 100%;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Source Code Pro'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# The Mathematics of Deep Learning
+
+## SIPB IAP, 18 January 2018
+
+### Anish Athalye (aathalye@)
+
+[anish.io/deeplearning](http://www.anish.io/deeplearning)
+
+???
+
+* Taught as part of SIPB IAP - you can go to SIPB's website to see our other
+IAP offerings.
+
+* All materials available on the website, including slides and code (and
+eventually, lecture video).
+
+---
+
+# Goals
+
+* Demystify deep learning
+
+* Change the way you think about programming
+
+.center[
+    ![](figs/dome-afremov.png)
+]
+
+???
+
+* I'm not going to spend time up front talking about why deep learning is cool
+or anything like that. Presumably you're here because you've heard about some
+of the neat applications and you want to learn how it works.
+
+* Deep learning is a pretty shallow field, so even if you want to get
+up-to-date with the state-of-the-art, it's not that hard.
+
+* At its core, it's basically high school math, some programming tricks, and a
+neat way of thinking about problems.
+
+* By the end of this lecture, you should be able to fully understand what's
+going on when you're training a deep neural net, down to the floating-point
+multiplies and adds. No more treating TensorFlow as a magical black box.
+
+* Please ask lots of questions as we go.
+
+A couple disclaimers:
+
+* We're mostly talking about how deep learning works, not why it works: we
+aren't going to be talking about questions like why deep neural nets converge
+to good minima, and so on. This is partly cause we have only four hours, and
+partly because the machine learning community doesn't yet have complete answers
+to many of these hard theoretical questions.
+
+* Also, of course, we can't cover all of deep learning in a four hour class,
+though we'll cover the fundamental mathematical ideas. If you fully understand
+all the material from this class, you should be able to go straight to reading
+research papers and learning all about the state-of-the-art.
+
+---
+
+class: center, middle
+
+![](figs/nn.jpg)
+
+???
+
+* Okay, so let's talk about artifical neurons...
+
+---
+
+???
+
+* Actually, just kidding, let's put that off for an hour or so.
+
+* Artificial neurons are one piece of the puzzle, and it's not the right place
+to start. I want to give you a good mental model for thinking about deep
+learning and optimization, so we're going to develop those ideas first.
+
+* As far as I know, the organization of this class is very different from a lot
+of the intro deep learning classes I've heard about. The goal is to make sure
+we cover the hard-to-learn big ideas in addition to the easy-to-learn details.
+So as we go through the course, focus more on the big ideas: you can always
+revisit the course material (it's all available online) to refer to details.
+
+---
+
+# Agenda
+
+1. Key ideas, pt. 1: program search, computational graphs, and backpropagation
+
+1. Key ideas, pt. 2: search spaces
+
+1. Hands on: adversarial examples, transfer learning
+
+1. Wrap-up
+
+???
+
+* First, we'll talk about machine learning as a search for a solution over a
+space of programs, and we'll talk about using gradient descent using
+backpropagation to perform an efficient search.
+
+* Next, we'll talk more about how we choose the spaces to search over, aka
+network architectures.
+
+* Throughout both of these parts, you should have a piece of paper handy and
+also have your laptop open - you should follow along as we go through
+mathematical derivations or as we implement code.
+
+* After we go through the main ideas, we'll talk briefly about one current
+research area and one neat application, and then you'll have a chance to
+experiment with one or both of them in a workshop-style session.
+
+* Finally, we'll wrap up and talk about resources you can use to learn more
+about deep learning.
+
+* We'll have short breaks in between these sessions.
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+          countIncrementalSlides: false
+      });
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>

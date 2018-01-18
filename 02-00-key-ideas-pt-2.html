@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Key Ideas, Part 2</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Montserrat);
+      @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700,400italic);
+
+      body { font-family: 'Lato'; }
+      h1, h2, h3 {
+        font-family: 'Montserrat';
+        font-weight: normal;
+      }
+      img {
+          max-width: 100%;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Source Code Pro'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Key Ideas, Part 2
+
+## Search spaces
+
+---
+
+# Search spaces
+
+* Does the search space contain the solution?
+
+* Can we find the solution?
+
+???
+
+* Want a search space that is large enough that it contains the solution.
+
+* Want a search space that's well-structured. We can't use gradient descent to
+  explore a discrete collection of functions, so we probably want a function
+  parameterized by a continuous variable. We probably want our search space to
+  be well-suited for gradient descent.
+
+* These are complemetary tensions.
+
+* We already said we're using computational graphs, but what are the individual
+  nodes (operations)? In the linear regression example, we had some operations
+  like additions and multiplications along with pointwise squaring and
+  summation.
+
+---
+
+# Neurons
+
+.center[
+    ![](figs/neuron.png)
+]
+
+???
+
+* Brain-inspired model of computation. Neuron is the basic building block.
+
+* Don't read too deeply into the brain-inspired part. It's the basic idea plus
+  a bunch of hacks that work well in practice.
+
+* Vaguely: there's input from a bunch of different places, and if that input
+  exceeds a certain threshold, then a signal is propagated.
+
+---
+
+class: center, middle
+
+# Artifical neurons
+
+???
+
+* Basic unit of computation
+
+* [ 02-01-notes ]
+
+---
+
+class: center, middle
+
+# Artificial neural networks
+
+???
+
+* [ 02-02-notes ]
+
+* Think about the big ideas we talked about before: we're searching over
+  programs. This is merely describing a function parameterized by the weights
+  and biases, and we can find the optimal program by gradient descent to
+  minimize a loss which will express how well the function fits some data.
+
+* At a high level: as you go deeper and deeper into the network, it's
+  extracting higher and higher level information. Basically, the deeper you go,
+  the further into the processing pipeline you are.
+
+* Empirically, large and deep neural nets are really good at solving problems:
+  scaling up has a huge benefit (need lots of compute and data).
+
+---
+
+# Convolutional neural networks
+
+.center[
+    ![](figs/convolution.png)
+]
+
+<!-- image from http://intellabs.github.io/RiverTrail/tutorial/ -->
+
+???
+
+* Turns out that for many problems, deep fully-connected neural networks
+  describe too large a search space. The solution is definitely there, but we
+  can't efficiently search the space. So we need a better structural prior. For
+  image-related problems, one solution is convolutional neural networks.
+
+* Convolution: have a convolutional filter, slide it over all possible
+  positions on the input, take dot products.
+
+---
+
+# Convolutional neural networks
+
+* Example: Sobel kernel
+
+`$$\begin{bmatrix}
+1 & 0 & -1 \\
+2 & 0 & -2 \\
+1 & 0 & -1 \\
+\end{bmatrix} * A$$`
+
+.center[
+    ![](figs/sobel.jpg)
+]
+
+???
+
+* A small number of parameters can describe a powerful operation.
+
+---
+
+# Convolutional neural networks
+
+.center[
+    ![](figs/vgg16.png)
+]
+
+<!-- https://blog.heuritech.com/2016/02/29/a-brief-report-of-the-heuritech-deep-learning-meetup-5/ -->
+
+???
+
+* VGG-16 network from 2014: takes in images, predicts probability distribution
+  over the 1000 ImageNet classes.
+
+* As you go deeper into the network, it extracts higher and higher level
+  representations. It's all convolution and pooling until the end, where there
+  are a couple fully connected layers, and finally, there's a softmax, that
+  scales the output so it's a probability distribution.
+
+* Highly structured search space.
+
+* This could be expressed by a huge deep fully-connected network, but you'd
+  never get it to converge.
+
+---
+
+class: center, middle
+
+# Neural network layers
+
+???
+
+* Many types of neural network layers.
+
+* We don't have time to talk about all of these, but if you understand the
+  fundamental concepts, this stuff is easy to learn.
+
+* Basically, layers are either there to structure the search space or make it
+  easier for gradient descent to find good minima.
+
+---
+
+class: center, middle
+
+# Network architectures
+
+???
+
+* How do you choose a search space (network architecture)? Look at what others
+  have done before, try your own variations: requires some trial and error.
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+          countIncrementalSlides: false
+      });
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>

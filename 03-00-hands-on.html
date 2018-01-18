@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hands On</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Montserrat);
+      @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700,400italic);
+
+      body { font-family: 'Lato'; }
+      h1, h2, h3 {
+        font-family: 'Montserrat';
+        font-weight: normal;
+      }
+      img {
+          max-width: 100%;
+      }
+      video {
+          max-width: 100%;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Source Code Pro'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Hands On
+
+### Adversarial examples
+
+### Transfer learning
+
+???
+
+* One of the challenges here is that most cool stuff requires tons of compute
+
+* If you're serious about this stuff, buy yourself a nice GPU, and try to get
+your hands on a ton of cloud compute credit (or join a lab or something)
+
+* We have two areas for you to explore that actually don't need that much
+compute
+
+---
+
+# Adversarial examples
+
+* Neural networks are easily fooled!
+
+--
+
+.center[
+    ![](figs/adversarial.png)
+]
+
+???
+
+* Both a theoretical and practical concern. Theoretically: why is it that these
+networks seem to generalize well, but fail on these adversarial examples that
+are imperceptibly perturbed images? Practically: are real systems at risk?
+
+* [ 03-01-notes ]
+
+* Bunch of neat results in this area
+
+---
+
+# Adversarial examples
+
+* Can even have adversarial objects
+
+--
+
+.center[
+<video src="figs/turtle.mp4" autoplay="" loop="" controls="" style="width: 100%;">
+</video>
+]
+
+???
+
+* This is what the adversarial examples notebook is all about. What's neat is
+that it's not that computationally hard to do this, at least for two
+dimensional images: you can even do it with your CPU on your laptop.
+
+---
+
+# Transfer learning
+
+* Easy way to train networks to solve custom tasks without requiring tons of compute
+
+???
+
+* [ 03-02-notes ]
+
+--
+
+.center[
+    ![](figs/rps.gif)
+]
+
+* (play it yourself: https://tenso.rs/demos/rock-paper-scissors/)
+
+???
+
+* This is what the transfer learning notebook is all about.
+
+---
+
+???
+
+* Blank slide
+
+* Briefly go through notebooks / code
+
+* See interest split, split people between rooms
+
+* Work in small groups
+
+* Ask people to come back for wrap-up
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+          countIncrementalSlides: false
+      });
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
