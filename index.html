@@ -14,7 +14,7 @@
 
       <h3>SIPB IAP 2018</h3>
 
-      <h3>Thu Jan 18 05:00pm - 09:00pm in 4-237</h3>
+      <h3>Thu Jan 18 05:00pm - 09:00pm in 3-270</h3>
 
       <p>Learn the key ideas that make deep learning work.</p>
 
@@ -59,11 +59,18 @@
           CUDA)</li>
         <li><a href="https://python-pillow.org/">Pillow</a></li>
         <li><a href="https://matplotlib.org/">Matplotlib</a></li>
+        <li><a href="https://www.ffmpeg.org/">FFmpeg</a></li>
+        <li><a href="https://keras.io/">Keras</a></li>
+        <li><a href="http://www.h5py.org/">h5py</a></li>
       </ul>
       </p>
 
-      <p>Installing these packages can be a bit of a pain, so if you prefer,
-      you can use a
+      <p>On a properly configured system, you should be able to <code>pip
+      install jupyter numpy scipy tensorflow Pillow matplotlib keras
+      h5py</code> and install FFmpeg using your system's package manager (e.g.
+      <code>apt-get</code> or <code>brew</code>).</p>
+
+      <p>If you prefer, you can use a
       <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>
       VM
       <a href="https://www.dropbox.com/s/g1srsu8aeur239n/deeplearning.ova?dl=0">image</a>
@@ -74,14 +81,18 @@
       execute the following code in a Jupyter Notebook:</p>
 
 <pre>
-import tensorflow as tf
 import numpy as np
-from scipy.misc import imsave
+import scipy
+import tensorflow as tf
+import PIL
+import matplotlib
+import keras
+import h5py
 
 sess = tf.InteractiveSession()
 
 x = tf.placeholder(tf.float32, (1,))
-print((x*x).eval({x: np.array([3])})) # this should print "[ 9.]"
+print((x*x).eval({x: np.array([3])})) # this should print "[9.]"
 </pre>
 
       <p>It's highly recommended that you try playing around with Jupyter
