@@ -262,9 +262,9 @@ class: center, middle
 
 --
 
-* Stochastic gradient descent, estimate loss over a sample of data points:
+* Stochastic gradient descent, estimate loss over a sample of `\(k\)` data points:
 
-`$$ \theta \leftarrow \theta - \alpha \cdot \nabla_\theta \sum_i \ l_i(\theta) $$`
+`$$ \theta \leftarrow \theta - \alpha \cdot \nabla_\theta \frac{1}{k} \sum_i^k \ l_i(\theta) $$`
 
 ???
 

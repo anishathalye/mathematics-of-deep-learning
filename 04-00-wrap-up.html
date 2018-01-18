@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wrap-up</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Montserrat);
+      @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700,400italic);
+
+      body { font-family: 'Lato'; }
+      h1, h2, h3 {
+        font-family: 'Montserrat';
+        font-weight: normal;
+      }
+      img {
+          max-width: 100%;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Source Code Pro'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# The Mathematics of Deep Learning
+
+## SIPB IAP, 18 January 2018
+
+### Anish Athalye (aathalye@)
+
+[anish.io/deeplearning](http://www.anish.io/deeplearning)
+
+???
+
+* Thank the TAs
+
+* Class material is all online, videos will be uploaded sometime soon
+
+* Hopefully, this class has demystified deep learning for you and also changed
+the way you think about programming
+
+---
+
+# Recap
+
+Rather than specifying solutions, we can just **specify the problem and search
+for the solution**. We can express the space of **candidate solutions as a
+computational graph** with trainable variables, and we can search over this
+solution space using **gradient descent** to find a good solution, using
+**backpropagation** to efficiently compute gradients.
+
+We can be creative in choosing **search spaces** (network architectures) that
+are general enough to capture the solution to our problem while being
+constrained enough and well-conditioned enough to allow gradient descent to
+find a good solution.
+
+???
+
+* In summary: don't write programs, search for them. You need to be creative
+with how you specify search spaces, but given a good structure, enough data,
+and enough compute, you can solve really hard problems using this technique.
+
+---
+
+# Deep learning in practice
+
+* Big ideas (this class)
+
+* Current techniques (research papers)
+
+* Tools and libraries (lots of practice)
+
+???
+
+* Current techniques
+    * Rapidly evolving field
+    * Details matter
+    * Can generally read the state-of-the-art result and know everything you
+    need to know about current practices
+
+---
+
+# What next?
+
+???
+
+* An excellent way to learn is by implementing research papers
+
+--
+
+* Implement [neural style transfer](https://arxiv.org/abs/1508.06576) [Gatys et al. 2014]
+
+* Train a bot to [play Atari games](https://arxiv.org/abs/1312.5602) [Mnih et al. 2013]
+
+* Train a [variational autoencoder](https://arxiv.org/abs/1312.6114) [Kingma & Welling 2013] or a [GAN](https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf) [Goodfellow et al. 2014] to synthesize images
+
+* Train an [LSTM](http://www.bioinf.jku.at/publications/older/2604.pdf) [Hochreiter & Schmidhuber 1997] to [synthesize text](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)
+
+* ...
+
+???
+
+* Here are some ideas.
+
+---
+
+class: center, middle
+
+# Feedback
+
+## anish.io/feedback
+
+???
+
+* Takes like 1 minute, you can do it now
+
+* This class was a giant experiment -- please help with the data collection!
+
+---
+
+class: center, middle
+
+# `&lt;EOF&gt;`
+
+???
+
+* Hope we changed the way you think about programming
+
+* Class material is all online, lecture videos will be up soon
+
+* I'll be around if you want to ask me questions in person
+
+* Feel free to email me if you have questions or want advice on things to
+explore
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+          countIncrementalSlides: false
+      });
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
